@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run build:cast && astro build",
+    "build": "npm run build:cast && astro build && node scripts/add-routes.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "generate-types": "wrangler types",
