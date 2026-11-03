@@ -1,9 +1,9 @@
 ---
 import { Check, Copy, Monitor, Smartphone } from "@lucide/astro";
-import { APP_LINKS, MAINTAINER } from "../../config/site";
+import { PROVIDER_SOURCE, MAINTAINER } from "../../config/site";
 
-const sourceUrl = APP_LINKS.zendaXRepo;
-const sourceName = "Zenda-X";
+const sourceUrl = PROVIDER_SOURCE.url;
+const sourceName = PROVIDER_SOURCE.name;
 const encodedUrl = encodeURIComponent(sourceUrl);
 const desktopUri = `vega://add-source?url=${encodedUrl}`;
 const androidIntent = `intent:#Intent;action=vega.intent.action.ADD_SOURCE;S.url=${encodedUrl};end`;
@@ -14,11 +14,11 @@ const steps = [
   "Open Vega on your phone, TV or computer.",
   "Go to Settings > Provider Manager > Available Providers.",
   "Tap the + button.",
-  "Enter zenda-cross or paste the repository URL, then confirm.",
+  PROVIDER_SOURCE.username ? `Enter ${PROVIDER_SOURCE.username} or paste the repository URL, then confirm.` : "Paste the repository URL, then confirm.",
 ];
 ---
 
-<div class="mx-auto w-full max-w-xl">
+{sourceUrl ? <div class="mx-auto w-full max-w-xl">
   <p
     class="font-headline text-xs font-bold uppercase tracking-[0.14em] text-vega-accent"
   >
@@ -72,7 +72,7 @@ const steps = [
     />
     <div class="min-w-0 flex-1">
       <div class="truncate font-headline text-sm font-bold text-white">
-        Zenda-Cross/vega-providers
+        {sourceUrl.replace(/^https?:\/\/github\.com\//i, "")}
       </div>
       <div class="truncate text-xs text-vega-muted">{sourceUrl}</div>
     </div>
@@ -117,7 +117,7 @@ const steps = [
       >Download it</a
     >.
   </p>
-</div>
+</div> : <div class="mx-auto w-full max-w-xl"><h1 class="font-headline text-2xl font-bold text-white">Provider source unavailable</h1><p class="mt-3 text-vega-muted">No provider source is configured for this site.</p></div>}
 
 <script is:inline>
   (() => {

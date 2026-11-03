@@ -31,7 +31,6 @@ export const APP_LINKS = Object.freeze({
     "https://apps.microsoft.com/detail/9n3fdt30wdlb?referrer=appbadge&mode=full",
   providerAuthoringGuide: "/guide/create-provider",
   addSource: "/add-source",
-  zendaXRepo: "https://github.com/Zenda-Cross/vega-providers",
   warpPlayStore:
     "https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone",
   warpApkMirror:
@@ -45,4 +44,11 @@ export const MAINTAINER = Object.freeze({
   name: "Zenda-X",
   avatarUrl: "https://avatars.githubusercontent.com/u/143804558?v=4",
   profileUrl: "https://github.com/Zenda-Cross",
+});
+
+// These values are public and are embedded in generated pages at build time.
+export const PROVIDER_SOURCE = Object.freeze({
+  username: import.meta.env.PROVIDER_SOURCE_USERNAME?.trim() || "",
+  url: import.meta.env.PROVIDER_SOURCE_URL?.trim() || "",
+  name: import.meta.env.PROVIDER_SOURCE_NAME?.trim() || "Provider source",
 });

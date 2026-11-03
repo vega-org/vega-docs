@@ -2,7 +2,9 @@
 
 The site hosts Vega's landing page and documentation, plus the standalone Vega Cast receiver at `/cast/`. It is not the mobile content browser and includes no providers or provider sources.
 
-On `vega-app.in` and its subdomains, the Adding Providers guide uses generic instructions without the Zenda-Cross example. The Worker returns 404 for `/add-provider`, `/add-source`, `/zenda-x` and their static HTML aliases before any installer intent can execute. Assets run through the Worker so static serving cannot bypass this domain policy. Other hostnames retain their existing pages.
+On `vega-app.in` and its subdomains, the Adding Providers guide uses generic instructions without the configured community provider example. The Worker returns 404 for `/add-provider`, `/add-source`, `/zenda-x` and their static HTML aliases before any installer intent can execute. Assets run through the Worker so static serving cannot bypass this domain policy. Other hostnames retain their existing pages.
+
+Provider examples and installer links are configured at build time using `PROVIDER_SOURCE_USERNAME`, `PROVIDER_SOURCE_URL`, and `PROVIDER_SOURCE_NAME`. Set them in an ignored `.env` file or the build environment; they are public values included in generated HTML. Without a URL, installer pages show an unavailable message. Rebuild after changing these values.
 
 ### Development
 

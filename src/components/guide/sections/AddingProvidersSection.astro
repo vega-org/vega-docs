@@ -1,8 +1,8 @@
 ---
 import { Copy, PlugZap } from "@lucide/astro";
-import { APP_LINKS } from "../../../config/site";
+import { APP_LINKS, PROVIDER_SOURCE } from "../../../config/site";
 
-const officialProviderName = "Zenda-Cross";
+const officialProviderName = PROVIDER_SOURCE.username;
 const {showCommunityExample=true}=Astro.props;
 // const officialProviderUrl = "https://github.com/vega-org/vega-providers";
 
@@ -45,8 +45,8 @@ const providerSteps = [
   >
     <li>{providerSteps[0]}</li>
     <li>{providerSteps[1]}</li>
-    {showCommunityExample ? <li>
-      To add Zenda-Cross providers go to github Zenda-Cross profile and copy
+    {showCommunityExample && officialProviderName ? <li>
+      To add {officialProviderName} providers, go to their GitHub profile and copy
       repo url or enter the username
       <span class="ml-1 inline-flex items-center gap-2">
         <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
@@ -57,7 +57,7 @@ const providerSteps = [
           class="inline-flex items-center gap-1 rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[11px] font-bold text-white transition hover:bg-white/12"
           data-copy-provider-value
           data-copy-text={officialProviderName}
-          aria-label="Copy Zenda-Cross"
+          aria-label={`Copy ${officialProviderName}`}
         >
           <Copy class="h-3.5 w-3.5 text-vega-accent" aria-hidden="true" />
           Copy
