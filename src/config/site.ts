@@ -1,4 +1,5 @@
-export const SITE_URL = "https://vega.8man.in";
+// Public site origin, set per deployment via PUBLIC_SITE_URL.
+export const SITE_URL = import.meta.env.PUBLIC_SITE_URL?.trim() || "https://vega-app.in";
 
 export const REPO = Object.freeze({
   owner: "vega-org",
@@ -25,7 +26,7 @@ export const DISCORD_INVITE_URL = "https://discord.com/invite/cr42m6maWy";
 export const APP_LINKS = Object.freeze({
   webApp: "https://web.vega-app.in",
   guide: "/guide",
-  officialSite: "https://vega.8man.in",
+  officialSite: "https://vega-app.in",
   playStore: "https://play.google.com/store/apps/details?id=vega.app",
   microsoftStore:
     "https://apps.microsoft.com/detail/9n3fdt30wdlb?referrer=appbadge&mode=full",
@@ -43,7 +44,6 @@ export const APP_LINKS = Object.freeze({
 export const MAINTAINER = Object.freeze({
   name: "Zenda-X",
   avatarUrl: "https://avatars.githubusercontent.com/u/143804558?v=4",
-  profileUrl: "https://github.com/Zenda-Cross",
 });
 
 // These values are public and are embedded in generated pages at build time.

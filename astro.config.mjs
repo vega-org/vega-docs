@@ -4,12 +4,14 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import node from "@astrojs/node";
+import { loadEnv } from "vite";
 
 const isDev = process.argv.includes("dev");
+const env = loadEnv(isDev ? "development" : "production", process.cwd(), "");
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://vega.8man.in",
+  site: env.PUBLIC_SITE_URL?.trim() || "https://vega-app.in",
 
   integrations: [sitemap()],
 

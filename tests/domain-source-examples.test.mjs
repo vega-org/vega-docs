@@ -8,7 +8,7 @@ const bundle=await build({entryPoints:['src/worker.js'],bundle:true,write:false,
     build.onResolve({filter:/^@astrojs\/cloudflare\/handler$/},()=>({path:'page',namespace:'fixture'}));
     build.onResolve({filter:/cloudflare\/(handler|cast)\.mjs$/},()=>({path:'cast',namespace:'fixture'}));
     build.onLoad({filter:/.*/,namespace:'fixture'},({path})=>({contents:path==='page'
-      ? `export function handle(){return new Response('<p>Add a source you chose.</p><span data-provider-source-example>Zenda-Cross providers</span>',{headers:{'Content-Type':'text/html'}})}`
+      ? `export function handle(){return new Response('<p>Add a source you chose.</p><span data-provider-source-example>Example-Provider providers</span>',{headers:{'Content-Type':'text/html'}})}`
       : `export const castRequest=()=>new Response('cast');export class CastSession{};export class CastDirectory{};`,loader:'js'}));
   },
 }]});
@@ -17,10 +17,10 @@ test('official HTML hides source examples in homepage and server islands, commun
   try {
     for(const path of ['/','/_server-islands/DocsSection']) {
       const official=await (await mf.dispatchFetch('https://vega-app.in'+path)).text();
-      assert.ok(!official.includes('Zenda-Cross'));
+      assert.ok(!official.includes('Example-Provider'));
       assert.ok(official.includes('Add a source you chose.'));
-      const community=await (await mf.dispatchFetch('https://vega.zendax.me'+path)).text();
-      assert.ok(community.includes('Zenda-Cross'));
+      const community=await (await mf.dispatchFetch('https://community.example'+path)).text();
+      assert.ok(community.includes('Example-Provider'));
     }
   } finally {await mf.dispose();}
 });
