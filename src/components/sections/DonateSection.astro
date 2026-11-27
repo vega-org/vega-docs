@@ -1,0 +1,408 @@
+---
+import { ArrowLeft, ExternalLink, Heart } from "@lucide/astro";
+import { DONATION_LINKS } from "../../config/site";
+
+type PlatformId =
+  | "razorpay"
+  | "paypal"
+  | "buymeacoffee"
+  | "kofi"
+  | "githubsponsors";
+
+interface DonationPlatform {
+  id: PlatformId;
+  name: string;
+  description: string;
+  ctaLabel: string;
+  href: string;
+  methods: string[];
+  brandColor: string;
+}
+
+const platforms: DonationPlatform[] = [
+  {
+    id: "razorpay",
+    name: "Razorpay",
+    description: "UPI, cards and netbanking for India",
+    ctaLabel: "Donate via Razorpay",
+    href: DONATION_LINKS.razorpay,
+    methods: ["visa", "mastercard", "rupay", "upi"],
+    brandColor: "#3395FF",
+  },
+  {
+    id: "paypal",
+    name: "PayPal",
+    description: "International cards and PayPal balance",
+    ctaLabel: "Donate via PayPal",
+    href: DONATION_LINKS.paypal,
+    methods: ["visa", "mastercard", "americanexpress", "paypal"],
+    brandColor: "#009CDE",
+  },
+  {
+    id: "buymeacoffee",
+    name: "Buy Me a Coffee",
+    description: "Quick one-off tip",
+    ctaLabel: "Buy a Coffee",
+    href: DONATION_LINKS.buymeacoffee,
+    methods: ["visa", "mastercard", "americanexpress", "applepay", "googlepay"],
+    brandColor: "#FFDD00",
+  },
+  {
+    id: "kofi",
+    name: "Ko-fi",
+    description: "One-off tip or monthly support",
+    ctaLabel: "Support on Ko-fi",
+    href: DONATION_LINKS.kofi,
+    methods: [
+      "visa",
+      "mastercard",
+      "americanexpress",
+      "paypal",
+      "applepay",
+      "googlepay",
+    ],
+    brandColor: "#FF5E5B",
+  },
+  {
+    id: "githubsponsors",
+    name: "GitHub Sponsors",
+    description: "One-time or monthly sponsorship",
+    ctaLabel: "Sponsor on GitHub",
+    href: DONATION_LINKS.githubSponsors,
+    methods: ["visa", "mastercard", "americanexpress"],
+    brandColor: "#EA4AAA",
+  },
+];
+
+const paymentMethods = [
+  { id: "visa", src: "/payment-icons/visa.svg", alt: "Visa", width: 24, height: 24 },
+  { id: "mastercard", src: "/payment-icons/mastercard.svg", alt: "Mastercard", width: 24, height: 24 },
+  { id: "americanexpress", src: "/payment-icons/americanexpress.svg", alt: "American Express", width: 24, height: 24 },
+  { id: "rupay", src: "/payment-icons/rupay.svg", alt: "RuPay", width: 91, height: 24 },
+  { id: "upi", src: "/payment-icons/upi.svg", alt: "UPI", width: 68, height: 24 },
+  { id: "paypal", src: "/payment-icons/paypal.svg", alt: "PayPal", width: 24, height: 24 },
+  { id: "applepay", src: "/payment-icons/applepay.svg", alt: "Apple Pay", width: 24, height: 24 },
+  { id: "googlepay", src: "/payment-icons/googlepay.svg", alt: "Google Pay", width: 24, height: 24 },
+];
+---
+
+<section
+  class="px-4 py-14 md:px-6 md:py-24"
+  aria-labelledby="donate-heading"
+>
+  <div class="mx-auto w-full max-w-6xl">
+    <div class="mx-auto max-w-3xl text-center">
+      <span
+        class="inline-flex items-center gap-1.5 rounded-md bg-vega-surface-hi px-3 py-1.5 font-headline text-xs font-bold uppercase tracking-[0.12em] text-vega-accent"
+      >
+        <Heart class="h-3.5 w-3.5" aria-hidden="true" />
+        Support Vega
+      </span>
+
+      <h1
+        id="donate-heading"
+        class="mt-4 font-headline text-[clamp(2.2rem,6vw,4.25rem)] leading-[0.96] font-black tracking-tight text-white"
+      >
+        Keep Vega alive
+      </h1>
+
+      <p
+        class="mx-auto mt-5 max-w-[54ch] text-[clamp(1rem,1.5vw,1.125rem)] leading-relaxed text-vega-muted"
+      >
+        Vega is built and maintained by a solo developer. If you enjoy using it,
+        your support helps keep it updated, fixes bugs, and covers provider
+        work.
+      </p>
+
+      <p
+        class="mx-auto mt-3 max-w-[54ch] text-sm leading-relaxed text-vega-muted/85 md:text-base"
+      >
+        Donating is completely optional. Thank you for considering it.
+      </p>
+    </div>
+
+    <div class="mt-12 flex flex-wrap justify-center gap-4">
+      {
+        platforms.map((platform) => (
+          <a
+            href={platform.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Donate via ${platform.name} (opens in a new tab)`}
+            data-platform-card
+            data-methods={platform.methods.join(" ")}
+            class="group flex w-full flex-col justify-between rounded-2xl border border-white/10 bg-vega-surface p-6 transition hover:border-vega-accent/35 hover:bg-vega-surface-hi focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vega-accent sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)]"
+          >
+            <div>
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition group-hover:border-white/20 group-hover:bg-white/10"
+                style={`color: ${platform.brandColor}`}
+              >
+                {platform.id === "razorpay" && (
+                  <svg
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M22.436 0l-11.91 7.773-1.174 4.276 6.625-4.297L11.65 24h4.391l6.395-24zM14.26 10.098L3.389 17.166 1.564 24h9.008l3.688-13.902Z"
+                    />
+                  </svg>
+                )}
+                {platform.id === "paypal" && (
+                  <svg
+                    class="h-5 w-5"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M15.607 4.653H8.941L6.645 19.251H1.82L4.862 0h7.995c3.754 0 6.375 2.294 6.473 5.513-.648-.478-2.105-.86-3.722-.86m6.57 5.546c0 3.41-3.01 6.853-6.958 6.853h-2.493L11.595 24H6.74l1.845-11.538h3.592c4.208 0 7.346-3.634 7.153-6.949a5.24 5.24 0 0 1 2.848 4.686M9.653 5.546h6.408c.907 0 1.942.222 2.363.541-.195 2.741-2.655 5.483-6.441 5.483H8.714Z"
+                    />
+                  </svg>
+                )}
+                {platform.id === "buymeacoffee" && (
+                  <svg
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.06-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.159 1.737.212 2.48.226 5.002.19 7.472-.14.45-.06.899-.13 1.345-.21.399-.072.84-.206 1.08.206.166.281.188.657.162.974a.544.544 0 01-.169.364zm-6.159 3.9c-.862.37-1.84.788-3.109.788a5.884 5.884 0 01-1.569-.217l.877 9.004c.065.78.717 1.38 1.5 1.38 0 0 1.243.065 1.658.065.447 0 1.786-.065 1.786-.065.783 0 1.434-.6 1.499-1.38l.94-9.95a3.996 3.996 0 00-1.322-.238c-.826 0-1.491.284-2.26.613z"
+                    />
+                  </svg>
+                )}
+                {platform.id === "kofi" && (
+                  <svg
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M11.351 2.715c-2.7 0-4.986.025-6.83.26C2.078 3.285 0 5.154 0 8.61c0 3.506.182 6.13 1.585 8.493 1.584 2.701 4.233 4.182 7.662 4.182h.83c4.209 0 6.494-2.234 7.637-4a9.5 9.5 0 0 0 1.091-2.338C21.792 14.688 24 12.22 24 9.208v-.415c0-3.247-2.13-5.507-5.792-5.87-1.558-.156-2.65-.208-6.857-.208m0 1.947c4.208 0 5.09.052 6.571.182 2.624.311 4.13 1.584 4.13 4v.39c0 2.156-1.792 3.844-3.87 3.844h-.935l-.156.649c-.208 1.013-.597 1.818-1.039 2.546-.909 1.428-2.545 3.064-5.922 3.064h-.805c-2.571 0-4.831-.883-6.078-3.195-1.09-2-1.298-4.155-1.298-7.506 0-2.181.857-3.402 3.012-3.714 1.533-.233 3.559-.26 6.39-.26m6.547 2.287c-.416 0-.65.234-.65.546v2.935c0 .311.234.545.65.545 1.324 0 2.051-.754 2.051-2s-.727-2.026-2.052-2.026m-10.39.182c-1.818 0-3.013 1.48-3.013 3.142 0 1.533.858 2.857 1.949 3.897.727.701 1.87 1.429 2.649 1.896a1.47 1.47 0 0 0 1.507 0c.78-.467 1.922-1.195 2.623-1.896 1.117-1.039 1.974-2.364 1.974-3.897 0-1.662-1.247-3.142-3.039-3.142-1.065 0-1.792.545-2.338 1.298-.493-.753-1.246-1.298-2.312-1.298"
+                    />
+                  </svg>
+                )}
+                {platform.id === "githubsponsors" && (
+                  <svg
+                    class="h-6 w-6"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M17.625 1.499c-2.32 0-4.354 1.203-5.625 3.03-1.271-1.827-3.305-3.03-5.625-3.03C3.129 1.499 0 4.253 0 8.249c0 4.275 3.068 7.847 5.828 10.227a33.14 33.14 0 0 0 5.616 3.876l.028.017.008.003-.001.003c.163.085.342.126.521.125.179.001.358-.041.521-.125l-.001-.003.008-.003.028-.017a33.14 33.14 0 0 0 5.616-3.876C20.932 16.096 24 12.524 24 8.249c0-3.996-3.129-6.75-6.375-6.75zm-.919 15.275a30.766 30.766 0 0 1-4.703 3.316l-.004-.002-.004.002a30.955 30.955 0 0 1-4.703-3.316c-2.677-2.307-5.047-5.298-5.047-8.523 0-2.754 2.121-4.5 4.125-4.5 2.06 0 3.914 1.479 4.544 3.684.143.495.596.797 1.086.796.49.001.943-.302 1.085-.796.63-2.205 2.484-3.684 4.544-3.684 2.004 0 4.125 1.746 4.125 4.5 0 3.225-2.37 6.216-5.048 8.523z"
+                    />
+                  </svg>
+                )}
+              </div>
+
+              <h2 class="mt-4 font-headline text-xl font-bold text-white">
+                {platform.name}
+              </h2>
+              <p class="mt-1.5 text-sm leading-relaxed text-vega-muted">
+                {platform.description}
+              </p>
+
+              <div class="mt-3 flex flex-wrap items-center gap-1.5">
+                {platform.methods.map((methodId) => {
+                  const method = paymentMethods.find((m) => m.id === methodId);
+                  return method ? (
+                    <span class="flex h-7 items-center justify-center rounded bg-white/95 px-2">
+                      <img
+                        src={method.src}
+                        alt={method.alt}
+                        width={method.width}
+                        height={method.height}
+                        class="h-4 w-auto"
+                        loading="lazy"
+                      />
+                    </span>
+                  ) : null;
+                })}
+              </div>
+            </div>
+
+            <span class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md border border-white/15 bg-white/5 px-4 py-2.5 font-headline text-sm font-bold text-white transition group-hover:border-transparent group-hover:bg-linear-to-br group-hover:from-vega-accent group-hover:to-vega-accent-strong group-hover:text-[#240900]">
+              <span>{platform.ctaLabel}</span>
+              <ExternalLink class="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-14 rounded-2xl border border-white/10 bg-vega-bg-soft/80 px-6 py-8 text-center"
+    >
+      <h2
+        class="font-headline text-xs font-bold uppercase tracking-[0.12em] text-vega-muted"
+      >
+        Supported payment methods
+      </h2>
+
+      <p class="mt-2 text-xs text-vega-muted">
+        Select a payment method to see where it works.
+      </p>
+
+      <div class="mt-5 flex flex-wrap items-center justify-center gap-2.5">
+        {
+          paymentMethods.map((method) => (
+            <button
+              type="button"
+              data-method-chip={method.id}
+              aria-pressed="false"
+              aria-label={`Show platforms that accept ${method.alt}`}
+              class="flex cursor-pointer items-center justify-center rounded-lg border border-transparent bg-white/95 px-3 py-2 transition hover:border-vega-accent/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vega-accent"
+            >
+              <img
+                src={method.src}
+                alt={method.alt}
+                width={method.width}
+                height={method.height}
+                class="h-6 w-auto"
+                loading="lazy"
+              />
+            </button>
+          ))
+        }
+      </div>
+
+      <p
+        class="mt-4 text-xs text-vega-muted/80"
+        aria-live="polite"
+        data-method-status
+      >
+        Availability depends on the chosen platform and your country.
+      </p>
+    </div>
+
+    <div class="mt-10 text-center">
+      <p class="text-sm text-vega-muted">
+        Thank you for supporting Vega.
+      </p>
+      <a
+        href="/"
+        class="mt-3 inline-flex items-center gap-2 text-sm font-bold text-vega-accent transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-vega-accent"
+      >
+        <ArrowLeft class="h-4 w-4" aria-hidden="true" />
+        <span>Back to Vega home</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const DEFAULT_STATUS =
+    "Availability depends on the chosen platform and your country.";
+  const SELECTED_CARD_CLASSES = [
+    "ring-1",
+    "ring-vega-accent/50",
+    "border-vega-accent/60",
+  ];
+  const DIMMED_CARD_CLASSES = ["opacity-40", "saturate-50"];
+  const SELECTED_CHIP_CLASSES = [
+    "border-vega-accent/60",
+    "bg-vega-accent/15",
+  ];
+
+  const chips = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-method-chip]"),
+  );
+  const cards = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>("[data-platform-card]"),
+  );
+  const statusEl = document.querySelector<HTMLElement>("[data-method-status]");
+
+  let activeMethod: string | null = null;
+
+  function formatPlatformList(names: string[]): string {
+    if (names.length === 0) return "";
+    if (names.length === 1) return names[0];
+    return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+  }
+
+  // Tailwind emits the base border/bg rules after the accent ones, so the base
+  // class must be removed while a card or chip is highlighted.
+  function setCardState(card: HTMLAnchorElement, state: "match" | "dim" | "none") {
+    card.classList.remove(
+      "ring-1",
+      "ring-vega-accent/50",
+      "border-vega-accent/60",
+      "opacity-40",
+      "saturate-50",
+    );
+    card.classList.add("border-white/10");
+    if (state === "match") {
+      card.classList.remove("border-white/10");
+      card.classList.add(...SELECTED_CARD_CLASSES);
+    } else if (state === "dim") {
+      card.classList.add(...DIMMED_CARD_CLASSES);
+    }
+  }
+
+  function setChipState(chip: HTMLButtonElement, active: boolean) {
+    chip.classList.remove("border-vega-accent/60", "bg-vega-accent/15");
+    chip.classList.add("bg-white/95");
+    chip.setAttribute("aria-pressed", active ? "true" : "false");
+    if (active) {
+      chip.classList.remove("bg-white/95");
+      chip.classList.add(...SELECTED_CHIP_CLASSES);
+    }
+  }
+
+  function clearSelection() {
+    activeMethod = null;
+    for (const chip of chips) {
+      setChipState(chip, false);
+    }
+    for (const card of cards) {
+      setCardState(card, "none");
+    }
+    if (statusEl) {
+      statusEl.textContent = DEFAULT_STATUS;
+    }
+  }
+
+  function selectMethod(methodId: string, methodLabel: string) {
+    activeMethod = methodId;
+
+    for (const chip of chips) {
+      setChipState(chip, chip.dataset.methodChip === methodId);
+    }
+
+    const matchingNames: string[] = [];
+    for (const card of cards) {
+      const methods = (card.dataset.methods ?? "").split(/\s+/).filter(Boolean);
+      const matches = methods.includes(methodId);
+      setCardState(card, matches ? "match" : "dim");
+      if (matches) {
+        const name = card.querySelector("h2")?.textContent?.trim();
+        if (name) matchingNames.push(name);
+      }
+    }
+
+    if (statusEl) {
+      statusEl.textContent =
+        matchingNames.length > 0
+          ? `${methodLabel} works with ${formatPlatformList(matchingNames)}.`
+          : DEFAULT_STATUS;
+    }
+  }
+
+  for (const chip of chips) {
+    chip.addEventListener("click", () => {
+      const methodId = chip.dataset.methodChip;
+      if (!methodId) return;
+      if (activeMethod === methodId) {
+        clearSelection();
+        return;
+      }
+      const label = chip.querySelector("img")?.alt.trim() || methodId;
+      selectMethod(methodId, label);
+    });
+  }
+</script>

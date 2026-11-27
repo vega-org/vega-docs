@@ -23,6 +23,14 @@ export const DESKTOP_REPO = Object.freeze({
 
 export const DISCORD_INVITE_URL = "https://discord.com/invite/cr42m6maWy";
 
+export const DONATION_LINKS = Object.freeze({
+  razorpay: "https://razorpay.me/@zenda-x",
+  paypal: "https://paypal.me/ZendaCross",
+  buymeacoffee: "https://buymeacoffee.com/zendax",
+  kofi: "https://ko-fi.com/zendax",
+  githubSponsors: "https://github.com/sponsors/vega-org",
+});
+
 export const APP_LINKS = Object.freeze({
   webApp: "https://web.vega-app.in",
   guide: "/guide",
@@ -32,6 +40,7 @@ export const APP_LINKS = Object.freeze({
     "https://apps.microsoft.com/detail/9n3fdt30wdlb?referrer=appbadge&mode=full",
   providerAuthoringGuide: "/guide/create-provider",
   addSource: "/add-source",
+  donate: "/donate",
   warpPlayStore:
     "https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone",
   warpApkMirror:

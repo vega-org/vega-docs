@@ -99,6 +99,36 @@ interface PlatformGroup {
 
 const PLATFORMS: PlatformGroup[] = [
   {
+    id: "windows",
+    name: "Windows — Intel / AMD (x64)",
+    icon: "windows",
+    patterns: [".exe", ".msi", ".msix"],
+    preferred: ".exe",
+    architecture: /(?:^|[_.-])(?:x64|x86_64|amd64)(?:[_.-]|$)/i,
+  },
+  {
+    id: "windows-arm64",
+    name: "Windows — ARM / Snapdragon (ARM64)",
+    icon: "windows",
+    patterns: [".exe", ".msi", ".msix"],
+    preferred: ".exe",
+    architecture: /(?:^|[_.-])(?:arm64|aarch64)(?:[_.-]|$)/i,
+  },
+  {
+    id: "linux",
+    name: "Linux",
+    icon: "linux",
+    patterns: [".AppImage", ".deb", ".rpm"],
+    preferred: ".AppImage",
+  },
+  {
+    id: "macos",
+    name: "macOS",
+    icon: "apple",
+    patterns: [".dmg", ".app.tar.gz"],
+    preferred: ".dmg",
+  },
+  {
     id: "webos",
     name: "LG webOS",
     icon: "tv",
@@ -117,36 +147,6 @@ const PLATFORMS: PlatformGroup[] = [
     preferred: ".vpkg",
     architecture: new RegExp(`(?:^|[_.-])${architecture}(?:[_.-]|$)`, "i"),
   })),
-  {
-    id: "windows",
-    name: "Windows — Intel / AMD (x64)",
-    icon: "windows",
-    patterns: [".exe", ".msi", ".msix"],
-    preferred: ".exe",
-    architecture: /(?:^|[_.-])(?:x64|x86_64|amd64)(?:[_.-]|$)/i,
-  },
-  {
-    id: "windows-arm64",
-    name: "Windows — ARM / Snapdragon (ARM64)",
-    icon: "windows",
-    patterns: [".exe", ".msi", ".msix"],
-    preferred: ".exe",
-    architecture: /(?:^|[_.-])(?:arm64|aarch64)(?:[_.-]|$)/i,
-  },
-  {
-    id: "macos",
-    name: "macOS",
-    icon: "apple",
-    patterns: [".dmg", ".app.tar.gz"],
-    preferred: ".dmg",
-  },
-  {
-    id: "linux",
-    name: "Linux",
-    icon: "linux",
-    patterns: [".AppImage", ".deb", ".rpm"],
-    preferred: ".AppImage",
-  },
 ];
 
 function isDesktopInstaller(name: string): boolean {
