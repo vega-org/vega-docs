@@ -20,6 +20,19 @@ export default {
     if(url.pathname==='/cast'){url.pathname='/cast/';return Response.redirect(url.toString(),308);}
     if(blocksProviderIntent(url))return new Response('Not found',{status:404,headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store','X-Robots-Tag':'noindex'}});
     if(url.pathname==='/vega-cast/v1')return castRequest(request,env);
+    // Serve crawl files from the request origin so cached copies never keep a
+    // stale domain after a deploy.
+    if(url.pathname==='/robots.txt'){
+      const body=`User-agent: *\nAllow: /\n\nSitemap: ${url.origin}/sitemap-index.xml\n`;
+      return new Response(body,{headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store'}});
+    }
+    if(url.pathname==='/app-ads.txt'){
+      const asset=await env.ASSETS.fetch(request);
+      const headers=new Headers(asset.headers);
+      headers.set('Content-Type','text/plain; charset=utf-8');
+      headers.set('Cache-Control','public, max-age=300');
+      return new Response(asset.body,{status:asset.status,statusText:asset.statusText,headers});
+    }
     const response=castHost&&url.pathname==='/'?await env.ASSETS.fetch(new Request(new URL('/cast/',url),request)):await handle(request,env,ctx);
     if(castHost||url.pathname==='/cast'||url.pathname.startsWith('/cast/')){
       const headers=new Headers(response.headers);
