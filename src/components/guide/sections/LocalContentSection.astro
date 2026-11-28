@@ -1,0 +1,304 @@
+---
+import {
+  FileVideo,
+  FolderOpen,
+  Monitor,
+  Smartphone,
+  Sparkles,
+} from "@lucide/astro";
+
+const folderTree = `Media/                 <- Select this folder for Bulk import
+  Inception (2010)/    <- One folder per movie
+    Inception.mp4
+  Breaking Bad/        <- Select this folder for Import folder / Single movie or series
+    Bonus.mkv          <- Directly inside the title folder -> appears under "Default"
+    Season 1/          <- Subfolder name appears in the season dropdown
+      S01E01.mkv
+      S01E02.mkv
+    Season 2/
+      S02E01.mkv`;
+---
+
+<section
+  id="local-content"
+  class="rounded-2xl border border-white/10 bg-vega-surface p-7 md:p-10"
+>
+  <div
+    class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-vega-accent"
+  >
+    <FolderOpen class="h-4 w-4" aria-hidden="true" />
+    Local Content
+  </div>
+
+  <h1
+    class="mt-4 font-headline text-[clamp(2rem,4vw,3.1rem)] font-black tracking-tight text-white"
+  >
+    Add and Format Local Content
+  </h1>
+
+  <p class="mt-3 max-w-[72ch] text-base leading-relaxed text-vega-muted">
+    Play your own movies and series stored on your device inside Vega's Library,
+    complete with season grouping, artwork, episode titles, and playback resume.
+  </p>
+
+  <div class="mt-6 space-y-5">
+    <article class="rounded-xl border border-white/10 bg-vega-surface-hi p-5">
+      <h2 class="font-headline text-xl font-bold text-white">
+        1. How to Add Local Content
+      </h2>
+      <div class="mt-4 grid gap-4 md:grid-cols-2">
+        <div class="rounded-lg border border-white/10 bg-black/20 p-4">
+          <div class="inline-flex items-center gap-2 text-white">
+            <Smartphone class="h-4 w-4 text-vega-accent" aria-hidden="true" />
+            <h3 class="font-headline text-base font-bold">
+              Android &amp; Android TV
+            </h3>
+          </div>
+          <ol
+            class="mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-vega-muted marker:text-vega-accent"
+          >
+            <li>Open <strong class="text-white">Library</strong>.</li>
+            <li>
+              Tap the <strong class="text-white">Local content</strong> folder
+              icon in the top bar.
+            </li>
+            <li>
+              Choose <strong class="text-white">Import folder</strong> (one movie
+              or series) or <strong class="text-white">Bulk import</strong> (a parent
+              folder with multiple titles).
+            </li>
+            <li>
+              Select your folder and allow persistent access when Android prompts.
+            </li>
+          </ol>
+          <p class="mt-3 text-xs leading-relaxed text-vega-muted">
+            Tip: Android blocks persistent access to top-level system roots such
+            as internal storage root or the root Downloads folder. Create and
+            select a subfolder such as <code
+              class="rounded bg-white/10 px-1.5 py-0.5 text-white">Media</code
+            >.
+          </p>
+        </div>
+
+        <div class="rounded-lg border border-white/10 bg-black/20 p-4">
+          <div class="inline-flex items-center gap-2 text-white">
+            <Monitor class="h-4 w-4 text-vega-accent" aria-hidden="true" />
+            <h3 class="font-headline text-base font-bold">
+              Desktop (Windows, macOS, Linux)
+            </h3>
+          </div>
+          <ol
+            class="mt-3 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-vega-muted marker:text-vega-accent"
+          >
+            <li>Open <strong class="text-white">Library</strong>.</li>
+            <li>
+              Click <strong class="text-white">Import folder</strong> in the header.
+            </li>
+            <li>
+              Choose <strong class="text-white">Single movie or series</strong> or
+              <strong class="text-white">Bulk import</strong>.
+            </li>
+            <li>Select your folder, review each title, and click Import.</li>
+          </ol>
+        </div>
+      </div>
+    </article>
+
+    <article class="rounded-xl border border-white/10 bg-vega-surface-hi p-5">
+      <div class="inline-flex items-center gap-2 text-white">
+        <FolderOpen class="h-5 w-5 text-vega-accent" aria-hidden="true" />
+        <h2 class="font-headline text-xl font-bold">
+          2. Recommended Folder Structure
+        </h2>
+      </div>
+      <p class="mt-2 text-sm leading-relaxed text-vega-muted">
+        Organizing each movie or show into its own folder lets Vega group
+        seasons cleanly and pick up title names automatically.
+      </p>
+      <div
+        class="mt-4 overflow-x-auto rounded-xl border border-white/10 bg-black/30 p-4"
+      >
+        <pre
+          class="m-0 font-mono text-[13px] leading-6 text-white/90"><code>{folderTree}</code></pre>
+      </div>
+      <ul
+        class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-vega-muted marker:text-vega-accent"
+      >
+        <li>
+          <strong class="text-white">Bulk import:</strong> Scans each immediate subfolder
+          as its own movie or series. Any loose video files placed directly inside
+          the parent folder are grouped together under that parent folder's name.
+        </li>
+        <li>
+          <strong class="text-white">Seasons &amp; subfolders:</strong> Subfolder
+          names appear in the season dropdown and sort naturally (for example,
+          <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Season 2</code
+          > before <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Season 10</code
+          >). Nested subfolders such as <code
+            class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Season 1/Specials</code
+          > are included too, while files directly inside a title folder appear under
+          <strong class="text-white">Default</strong>.
+        </li>
+        <li>
+          <strong class="text-white">Supported video extensions:</strong>
+          <code class="rounded bg-white/10 px-1.5 py-0.5 text-white">.mkv</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.mp4</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.m4v</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.avi</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.mov</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.webm</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.ts</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.m2ts</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.mpeg</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.mpg</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.3gp</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.wmv</code
+          >, and <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >.flv</code
+          >.
+        </li>
+      </ul>
+    </article>
+
+    <article class="rounded-xl border border-white/10 bg-vega-surface-hi p-5">
+      <div class="inline-flex items-center gap-2 text-white">
+        <FileVideo class="h-5 w-5 text-vega-accent" aria-hidden="true" />
+        <h2 class="font-headline text-xl font-bold">
+          3. Formatting Filenames for Episode &amp; Metadata Matching
+        </h2>
+      </div>
+      <ul
+        class="mt-3 list-disc space-y-2.5 pl-5 text-sm leading-relaxed text-vega-muted marker:text-vega-accent"
+      >
+        <li>
+          <strong class="text-white"
+            >Explicit season + episode (recommended, works in any folder):</strong
+          >
+          Include <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >S01E01</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >s01e01</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >S1 E01</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >S01.E01</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >S01_E01</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >S01-E01</code
+          >, or <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >1x01</code
+          > anywhere in the filename (for example <code
+            class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Show.Name.S01E01.1080p.mkv</code
+          > or <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Show 1x02.mp4</code
+          >).
+        </li>
+        <li>
+          <strong class="text-white">Season folder + episode number:</strong> Place
+          files inside a folder named <code
+            class="rounded bg-white/10 px-1.5 py-0.5 text-white">Season 1</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Season 02</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Season_1</code
+          >, or <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >S1</code
+          > and name files with <code
+            class="rounded bg-white/10 px-1.5 py-0.5 text-white">Episode 1</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Ep 02</code
+          >, <code class="rounded bg-white/10 px-1.5 py-0.5 text-white">E03</code
+          >, or a leading episode number like <code
+            class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >01 - Pilot.mkv</code
+          > or <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >02.mp4</code
+          >.
+        </li>
+        <li>
+          <strong class="text-white">Automatic folder name cleanup:</strong> When
+          pre-filling metadata search, Vega strips dots, underscores,
+          <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >[bracketed tags]</code
+          >, and release years — for example, <code
+            class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Breaking.Bad.2008.[1080p]</code
+          > becomes <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >Breaking Bad</code
+          >.
+        </li>
+        <li>
+          <strong class="text-white">Unmatched files still work:</strong> Files that
+          do not match a season/episode pattern still display and play normally using
+          their original filenames.
+        </li>
+      </ul>
+    </article>
+
+    <article class="rounded-xl border border-white/10 bg-vega-surface-hi p-5">
+      <div class="inline-flex items-center gap-2 text-white">
+        <Sparkles class="h-5 w-5 text-vega-accent" aria-hidden="true" />
+        <h2 class="font-headline text-xl font-bold">
+          4. Matching Metadata, Display Names &amp; Rescanning Later
+        </h2>
+      </div>
+      <ul
+        class="mt-3 list-disc space-y-2.5 pl-5 text-sm leading-relaxed text-vega-muted marker:text-vega-accent"
+      >
+        <li>
+          <strong class="text-white">Choose movie or series:</strong> During import
+          review — or anytime later via <strong class="text-white"
+            >Edit metadata</strong
+          > on the title's info page — search by title or switch to <strong
+            class="text-white">IMDb ID</strong
+          > (for example <code class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >tt0944947</code
+          >) and pick <strong class="text-white">Movie</strong> or <strong
+            class="text-white">Series</strong
+          >. Matching is optional; select <strong class="text-white"
+            >Use folder name instead</strong
+          > (Android) or <strong class="text-white">Use folder name</strong> (Desktop)
+          to keep local folder and file names without artwork.
+        </li>
+        <li>
+          <strong class="text-white">Metadata names toggle:</strong> When enabled,
+          matched movies label the playable item as <code
+            class="rounded bg-white/10 px-1.5 py-0.5 text-white">Movie</code
+          > and matched episodes show as <code
+            class="rounded bg-white/10 px-1.5 py-0.5 text-white"
+            >S1 E1 · Episode Title</code
+          > along with thumbnails and episode summaries. Turn this off if you prefer
+          to always see original filenames.
+        </li>
+        <li>
+          <strong class="text-white">Save to library:</strong> Assign imported titles
+          to one or more Library categories, or leave the default selection so they
+          appear under <strong class="text-white">All</strong>.
+        </li>
+        <li>
+          <strong class="text-white">Updating files later:</strong> When you add
+          or remove video files in an already-imported folder, pull down to refresh
+          on the title page on Android, or click <strong class="text-white"
+            >Rescan folder</strong
+          > on Desktop.
+        </li>
+      </ul>
+    </article>
+  </div>
+</section>
