@@ -1,27 +1,13 @@
 ---
-import { APP_LINKS, REPO } from "../../../config/site";
-import { getRepoReleases } from "../../../lib/github";
+import { APP_LINKS } from "../../../config/site";
 import {
   Cloud,
-  Download,
   ExternalLink,
   Network,
   Settings,
   Shield,
   Wifi,
 } from "@lucide/astro";
-
-const byeDpiReleases = await getRepoReleases(
-  "dovecoteescapee",
-  "ByeDPIAndroid",
-  1,
-  REPO.githubCacheTtlSeconds,
-);
-const latestByeDpiRelease = byeDpiReleases[0] ?? null;
-const latestByeDpiApk =
-  latestByeDpiRelease?.assets.find((asset) =>
-    asset.name.toLowerCase().endsWith(".apk"),
-  ) ?? latestByeDpiRelease?.universalAsset;
 ---
 
 <section
@@ -32,20 +18,19 @@ const latestByeDpiApk =
     class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-vega-accent"
   >
     <Network class="h-4 w-4" aria-hidden="true" />
-    Bypass ISP Blocking
+    Network &amp; DNS Troubleshooting
   </div>
 
   <h2
     class="mt-4 font-headline text-[clamp(1.8rem,3.6vw,2.6rem)] font-black tracking-tight text-white"
   >
-    Provider Works for Others but Not for You?
+    Provider Not Loading? Check Your Network
   </h2>
 
   <p class="mt-3 max-w-[72ch] text-base leading-relaxed text-vega-muted">
-    If a provider works for other users but not for you, your ISP (Internet
-    Service Provider) may be blocking the provider website URL. Start with the
-    options built into Vega. Use the external methods only if those do not
-    help.
+    If a provider loads for other users but not for you, local DNS settings or
+    network filtering are often the cause. Start with the options built into
+    Vega, then try the external options only if those do not help.
   </p>
 
   <h3
@@ -69,7 +54,7 @@ const latestByeDpiApk =
           <h4 class="font-headline text-lg font-bold">Change DNS</h4>
         </div>
         <p class="mt-3 text-sm text-vega-muted">
-          Fixes blocks where your ISP's DNS hides the provider website.
+          Helps when the network's DNS cannot resolve the provider website.
         </p>
         <ul class="mt-3 list-disc space-y-1.5 pl-5 marker:text-vega-accent">
           <li>
@@ -95,9 +80,9 @@ const latestByeDpiApk =
           <h4 class="font-headline text-lg font-bold">Turn On Anti-DPI Mode</h4>
         </div>
         <p class="mt-3 text-sm text-vega-muted">
-          Gets past ISPs that inspect traffic to block websites. It uses ByeDPI
-          inside Vega, without a VPN. It does not help when the ISP blocks the
-          website's IP address.
+          Helps when network filtering interferes with connections. It uses
+          ByeDPI inside Vega, without a VPN. It does not help when the
+          destination IP address is unreachable.
         </p>
         <ul class="mt-3 list-disc space-y-1.5 pl-5 marker:text-vega-accent">
           <li>
@@ -121,8 +106,8 @@ const latestByeDpiApk =
           <h4 class="font-headline text-lg font-bold">Turn On WARP Mode</h4>
         </div>
         <p class="mt-3 text-sm text-vega-muted">
-          Sends Vega's traffic through Cloudflare WARP. This also works when
-          the ISP blocks the website's IP address.
+          Routes Vega's traffic through Cloudflare WARP when the direct
+          connection fails.
         </p>
         <ul class="mt-3 list-disc space-y-1.5 pl-5 marker:text-vega-accent">
           <li>
@@ -144,10 +129,10 @@ const latestByeDpiApk =
     class="mt-10 inline-flex items-center gap-2 font-headline text-xl font-bold text-white"
   >
     <ExternalLink class="h-5 w-5 text-vega-accent" aria-hidden="true" />
-    External Methods
-  </h4>
+    External Options
+  </h3>
   <p class="mt-2 max-w-[72ch] text-sm leading-relaxed text-vega-muted">
-    If the built-in options do not work, try these in order. They change
+    If the built-in options do not help, try these in order. They change
     settings or install apps outside Vega.
   </p>
 
@@ -200,22 +185,10 @@ const latestByeDpiApk =
         </div>
         <p class="mt-3 text-sm text-vega-muted">
           If Private DNS does not work, install ByeDPI, open the app, then tap
-          <strong class="text-white">Connect</strong>.
-        </p>
-        <p class="mt-3 text-sm text-vega-muted">
-          Use the direct APK button for the latest build, or open GitHub if you
-          want the full latest release page.
+          <strong class="text-white">Connect</strong>. GitHub is the official
+          source for ByeDPI releases.
         </p>
         <div class="mt-4 flex flex-wrap gap-3">
-          <a
-            class="inline-flex items-center gap-2 rounded-lg bg-vega-accent px-4 py-2 text-sm font-bold text-[#240900] transition hover:-translate-y-0.5"
-            href={latestByeDpiApk?.url ?? APP_LINKS.byeDpiReleases}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Download class="h-4 w-4" aria-hidden="true" />
-            Download Latest APK
-          </a>
           <a
             class="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-4 py-2 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:border-white/25"
             href={APP_LINKS.byeDpiReleases}
@@ -243,19 +216,7 @@ const latestByeDpiApk =
           target="_blank"
           rel="noreferrer"
         >
-          Download WARP from Play Store
-        </a>
-        <p class="mt-3 text-sm text-vega-muted">
-          If Play Store link is not working, you can also download WARP from
-          APKMirror.
-        </p>
-        <a
-          class="mt-2 inline-flex text-sm font-bold text-vega-accent"
-          href={APP_LINKS.warpApkMirror}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Download WARP from APKMirror
+          Get WARP from Play Store
         </a>
       </article>
     </li>
@@ -266,8 +227,8 @@ const latestByeDpiApk =
           Use a VPN
         </h4>
         <p class="mt-3 text-sm text-vega-muted">
-          You can use a VPN to bypass ISP-level blocking. Some websites detect
-          and block VPN traffic, so a reliable premium VPN may be required.
+          A VPN can help when local network filtering prevents access. Some
+          websites block VPN traffic, so a reliable VPN may be required.
         </p>
       </article>
     </li>
