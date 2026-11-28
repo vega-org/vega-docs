@@ -26,7 +26,7 @@ export default {
       const body=`User-agent: *\nAllow: /\n\nSitemap: ${url.origin}/sitemap-index.xml\n`;
       return new Response(body,{headers:{'Content-Type':'text/plain; charset=utf-8','Cache-Control':'no-store'}});
     }
-    if(url.pathname==='/app-ads.txt'){
+    if(url.pathname==='/ads.txt'||url.pathname==='/app-ads.txt'){
       const asset=await env.ASSETS.fetch(request);
       const headers=new Headers(asset.headers);
       headers.set('Content-Type','text/plain; charset=utf-8');
